@@ -1,17 +1,17 @@
 function [f, gradf] = obj(dv)
-    global  OPT
-    
+    global  OPT    
     OPT.dv_old = OPT.dv; % save the previous design
     OPT.dv = dv(:); % update the design
     
-   
-    % Update or perform the analysis only if design has changed
-    tol = 1e-12;
+    FE_compute_element_stiffness_update(); % !!! UPDATE stiffness matrix !!!
     
-    if max(OPT.dv - OPT.dv_old) > tol
-        perform_analysis();
-    end
-
+    % Update or perform the analysis only if design has changed
+    perform_analysis();
+    %-------------------------------
     f = OPT.functions.f{1}.value;
     gradf = OPT.functions.f{1}.grad;
+    gradf=reshape(gradf,[OPT.n_dv],1);
+ 
+end
+    
     

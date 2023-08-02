@@ -81,7 +81,7 @@ fprintf(fid, strcat("CELL_DATA ", string(FE.n_elem), " \n"));
 fprintf(fid, "FIELD FieldData %i \n", n_scalar_fields);
 fprintf(fid, "density 1 %i float\n", FE.n_elem);
 for iel=1:FE.n_elem
-    density = full(OPT.pen_rho_e(iel));
+    density = full(OPT.dv(iel));
     fprintf(fid, '%f \n', density);
 end
 

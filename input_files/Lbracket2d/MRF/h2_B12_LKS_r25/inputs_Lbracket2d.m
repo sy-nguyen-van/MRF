@@ -77,9 +77,9 @@ FE.mesh_input.type = '2DLbracket';
 % the side of the square box of the L-shape, the % length of the side of 
 % the square cutout on the top-left side, and the element size.
 %
-FE.mesh_input.L_side = 100;
-FE.mesh_input.L_cutout = 60;
-FE.mesh_input.L_element_size = 2;
+FE.mesh_input.L_side = 10;
+FE.mesh_input.L_cutout = 5;
+FE.mesh_input.L_element_size = 1;
 
 %% =======================================================================
 %% Boundary conditions
@@ -151,9 +151,9 @@ FE.mesh_input.L_element_size = 2;
 %              
 %
     % Relaxation power 
-    OPT.parameters.relaxation_param = 2.5;
+    OPT.parameters.relaxation_param = 6;
     % Type of aggregation function. Options: 'p-norm', 'mrf'
-    OPT.parameters.aggregation_type = 'mrf';
+    OPT.parameters.aggregation_type = 'p-norm';
     % Whether or not to do continuation on the aggregation and rectifier
     % parameters
     OPT.parameters.continuation = true;
@@ -225,11 +225,11 @@ FE.mesh_input.L_element_size = 2;
 % you want to do one or the other but not both).
 %
     % Whether or not to perform sensitivities finite difference check
-    OPT.make_fd_check = false;
+    OPT.make_fd_check = 0;
     % Step size for finite difference
     OPT.fd_step_size = 1e-8;
     % Whether or not to check cost function sensitivities
-    OPT.check_cost_sens = false;
+    OPT.check_cost_sens = 0;
     % Whether or not to check constraint sensitivities
     OPT.check_cons_sens = true;
     

@@ -2,7 +2,9 @@ function init_FE()
 %
 % Initialize the Finite Element structure
 %
-global FE
+global FE OPT 
+
+
 
 switch FE.mesh_input.type
     case 'generate'
@@ -24,21 +26,18 @@ end
 % Plot mesh (usually uncommented, this is to help debugging mesh
 % generation)
 % plot_2dmesh(10);
-
 % Compute element volumes and centroidal coordinates
 FE_compute_element_info();
-
 % Setup boundary conditions
 run(FE.mesh_input.bcs_file);
-
 % initialize the fixed/free partitioning scheme:
 FE_init_partitioning();
-
 % assemble the boundary conditions
 FE_assemble_BC();
-
 % compute elastic coefficients
-FE_compute_constitutive_matrices();
-
+%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+OPT.n_dv = FE.n_elem;
+OPT.dv = OPT.LB + ones(FE.n_elem,1).*(OPT.UB-OPT.LB);
+%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 % compute the element stiffness matrices
-FE_compute_element_stiffness();
+FE_compute_element_stiffness()

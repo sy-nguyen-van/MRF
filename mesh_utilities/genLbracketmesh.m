@@ -81,5 +81,3 @@ FE.coords = node';
 FE.elem_node = elem';
 
 
-
-            

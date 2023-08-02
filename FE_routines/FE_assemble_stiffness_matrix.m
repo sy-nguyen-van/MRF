@@ -25,13 +25,15 @@ global FE OPT
 %% assemble and partition the global stiffness matrix
 
 % Retrieve the penalized stiffness
-    penalized_rho_e = permute(repmat(...
-        OPT.pen_rho_e(:),...
-            [1,FE.n_edof,FE.n_edof]),[2,3,1]);
-        
+%     penalized_rho_e = permute(repmat(...
+%         OPT.pen_rho_e(:),...
+%             [1,FE.n_edof,FE.n_edof]),[2,3,1]);
+%         
 % Ersatz material: 
-penalized_Ke = penalized_rho_e .* FE.Ke;
-FE.sK_penal = penalized_Ke(:);
+% penalized_Ke = penalized_rho_e .* FE.Ke;
+% FE.sK_penal = penalized_Ke(:);
+
+FE.sK_penal = FE.Ke(:);
 
 % assemble the penalized global stiffness matrix (the sparse functions
 % accumulates values with repeated indices, which allows to assemble the

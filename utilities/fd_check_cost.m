@@ -4,8 +4,7 @@ function fd_check_cost()
 % the COST function with respect to the bar design variables.
 %
 
-global OPT 
-
+global FE OPT TPMS
 % ===============================
 % FINITE DIFFERENCE SENSITIVITIES
 % ===============================
@@ -21,25 +20,17 @@ dv_i = OPT.dv;
 
 [theta_0,grad_theta_0] = obj(dv_0);
 % Finite differences
-disp('Computing finite difference sensitivities...');
-
+disp('Computing finite difference sensitivities of cost...');
 % Do this for all design variables or only a few
-%up_to_dv = n_dv;
 up_to_dv = n_dv;
 
 for i = 1:up_to_dv
 
-    % ---
-    % First, perturb dv
-    % ---
-
     dv_i(i) = dv_0( i ) + fd_step;
-    [theta_i , ~] = obj(dv_i);
-
+    [theta_i] = obj(dv_i);
     grad_theta_i(i) = (theta_i - theta_0)/fd_step;
-
     error = grad_theta_0(i) - grad_theta_i(i);
-
+    
     if abs(error) > abs(max_error)
         max_error = error;
         max_error_dv = i;
@@ -47,15 +38,12 @@ for i = 1:up_to_dv
     rel_error = error / theta_0;
     if abs(rel_error) > abs(max_rel_error)
         max_rel_error = rel_error;
-        max_rel_error_dv = i;   
+        max_rel_error_dv = i;
     end
-
     dv_i = dv_0;
-
+    
 end
-
-[~,grad_theta_0] = obj(dv_0); % to reset the design
-
+OPT.dv = dv_0;
 disp('Max. ABSOLUTE error is:'); disp(max_error);
 disp('It occurs at:');
 disp('  variable:'); disp(max_error_dv);
@@ -63,14 +51,14 @@ disp('  variable:'); disp(max_error_dv);
 disp('Max. RELATIVE error is:'); disp(max_rel_error);
 disp('It occurs at:');
 disp('  variable:'); disp(max_rel_error_dv);
-
-figure(2)
-clf
-hold on
+%------------------------------------
+figure(); clf; hold on
 plot(grad_theta_i,'o','LineStyle','-')
 plot(grad_theta_0,'.','LineStyle','-')
-legend('fd','analytical')
-title('cost function','Interpreter','latex')
-legend('fd','analytical')
-xlabel('design variable z');
-ylabel('dc/dz');
+title('Cost function','Interpreter','latex',  'FontSize', 14, 'FontWeight','bold')
+legend('FD','Analytical',  'FontSize', 10, 'FontWeight','bold')
+xlabel('Design variable: v', 'FontSize', 12, 'FontWeight','bold')
+ylabel('dz/dv',  'FontSize', 12, 'FontWeight','bold')
+grid on;
+
+end

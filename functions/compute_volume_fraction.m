@@ -6,14 +6,12 @@ function [vf,grad_vf] = compute_volume_fraction()
 global FE OPT
 
 % compute the volume fraction
-    v_e = FE.elem_vol; % element volumes
-    V = sum(v_e); % total volume
-    vf_e0 = v_e/V;
-    vf_e = vf_e0 .* OPT.filt_rho_e(:); 
-    vf =  sum(vf_e); 
+    v_e = sum(OPT.dv*1.875); % element volumes
+    V = FE.n_elem; % total volume
+    vf = v_e/V;
 
 % compute the design sensitivity
-    grad_vf = OPT.H' * vf_e0;
+    grad_vf =OPT.H'*ones(FE.n_elem,1)/V;
     
 % output
     OPT.volume_fraction = vf;

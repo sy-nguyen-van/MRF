@@ -14,7 +14,7 @@ f{2}.name = 'volume fraction';
 f{2}.function = 'compute_volume_fraction';
 
 f{3}.name = 'maximum stress violation';
-f{3}.function = 'compute_max_stress_violation';
+f{3}.function = 'compute_P_norm';
 
 f{4}.name = 'maxGRF';
 f{4}.function = 'compute_maxGRF';
@@ -87,7 +87,7 @@ for iel=1:FE.n_elem
     idx = final_idx;
 end
 OPT.H = sparse(iH(1:idx), jH(1:idx), sH(1:idx));
-
+OPT.Hs = sum(OPT.H,2);
 % =================================
 % Setup continuation on aggregation and rectifier parameters if needed
 if OPT.parameters.continuation && OPT.stress_needed

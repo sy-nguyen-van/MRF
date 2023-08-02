@@ -6,7 +6,6 @@ function [] = evaluate_relevant_functions()
 
 global OPT
 
-
 OPT.functions.n_func =  numel(OPT.functions.f);
 
 for i = 1:OPT.functions.n_func
@@ -14,3 +13,4 @@ for i = 1:OPT.functions.n_func
     OPT.functions.f{i}.value = value;
     OPT.functions.f{i}.grad = grad;
 end
+

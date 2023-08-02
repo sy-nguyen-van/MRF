@@ -236,7 +236,7 @@ FE.mesh_input.L_element_size = 0.8;
 % you want to do one or the other but not both).
 %
     % Whether or not to perform sensitivities finite difference check
-    OPT.make_fd_check = false;
+    OPT.make_fd_check = 1;
     % Step size for finite difference
     OPT.fd_step_size = 1e-5;
     % Whether or not to check cost function sensitivities

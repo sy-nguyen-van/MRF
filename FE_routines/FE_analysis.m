@@ -2,7 +2,7 @@ function [] = FE_analysis()
 %
 % Assemble the global stiffness matrix and solve the finite element
 % analysis
-
+global  OPT FE
 % assemble the stiffness matrix partitions Kpp Kpf Kff
 FE_assemble_stiffness_matrix();
 
